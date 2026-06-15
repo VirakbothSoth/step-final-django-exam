@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Categories{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h2>Categories</h2><a href="{% url 'courses:category_create' %}" class="btn btn-success btn-sm">Add Category</a></div>
+<table class="table"><thead><tr><th>Name</th><th>Slug</th></tr></thead><tbody>
+{% for cat in categories %}<tr><td>{{ cat.name }}</td><td>{{ cat.slug }}</td></tr>{% endfor %}
+</tbody></table>{% endblock %}

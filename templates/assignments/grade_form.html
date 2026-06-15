@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Grade Submission{% endblock %}
+{% block content %}<h2>Grade Submission</h2>
+<p><strong>Student:</strong> {{ submission.student.user.username }}</p>
+<form method="post">{% csrf_token %}{% for field in form %}<div class="mb-3"><label class="form-label">{{ field.label }}</label>{{ field }}</div>{% endfor %}
+<button type="submit" class="btn btn-primary">Save Grade</button></form>{% endblock %}

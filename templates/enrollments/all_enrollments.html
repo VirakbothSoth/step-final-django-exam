@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}All Enrollments{% endblock %}
+{% block content %}
+<h2>All Enrollments</h2>
+<table class="table table-hover">
+  <thead class="table-dark"><tr><th>Student</th><th>Course</th><th>Enrolled</th><th>Progress</th><th>Completed</th></tr></thead>
+  <tbody>
+    {% for e in enrollments %}
+    <tr>
+      <td>{{ e.student.user.username }}</td>
+      <td>{{ e.course.title }}</td>
+      <td>{{ e.enrolled_at|date:"M d, Y" }}</td>
+      <td>{{ e.progress_percent }}%</td>
+      <td>{% if e.completed %}<span class="badge bg-success">Yes</span>{% else %}<span class="badge bg-secondary">No</span>{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}{{ assignment.title }}{% endblock %}
+{% block content %}
+<h2>{{ assignment.title }}</h2>
+<p>{{ assignment.description }}</p>
+<p><strong>Due:</strong> {{ assignment.due_date|date:"M d, Y H:i"|default:"No deadline" }} &bull; <strong>Max Score:</strong> {{ assignment.max_score }}</p>
+{% if submission %}
+  <div class="alert alert-info">Submitted on {{ submission.submitted_at|date:"M d, Y" }}.
+  {% if submission.is_graded %}Score: {{ submission.score }}/{{ assignment.max_score }} – {{ submission.feedback }}{% else %}Not yet graded.{% endif %}</div>
+{% endif %}
+{% if user.is_authenticated and user.role == 'student' %}
+  <a href="{% url 'assignments:submit_assignment' pk=assignment.pk %}" class="btn btn-primary">Submit</a>
+{% endif %}
+{% endblock %}

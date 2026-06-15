@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}My Profile{% endblock %}
+{% block content %}<h2>My Profile</h2>
+<div class="row"><div class="col-md-6">
+<form method="post" enctype="multipart/form-data">{% csrf_token %}{% for field in form %}<div class="mb-3"><label class="form-label">{{ field.label }}</label>{{ field }}</div>{% endfor %}
+<button type="submit" class="btn btn-primary">Update Profile</button></form>
+</div></div>{% endblock %}

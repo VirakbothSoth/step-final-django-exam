@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% block title %}Register as Instructor{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4">Create Instructor Account</h3>
+                <form method="post">
+                    {% csrf_token %}{% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>{{
+field }}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success w-100">
+                        Register as Instructor
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

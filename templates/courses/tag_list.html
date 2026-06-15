@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Tags{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h2>Tags</h2><a href="{% url 'courses:tag_create' %}" class="btn btn-success btn-sm">Add Tag</a></div>
+{% for tag in tags %}<span class="badge bg-secondary me-1">{{ tag.name }}</span>{% endfor %}{% endblock %}

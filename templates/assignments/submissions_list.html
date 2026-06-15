@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Submissions{% endblock %}
+{% block content %}<h2>Submissions – {{ assignment.title }}</h2>
+<table class="table"><thead><tr><th>Student</th><th>Submitted</th><th>Graded</th><th>Score</th><th>Action</th></tr></thead><tbody>
+{% for sub in submissions %}
+<tr><td>{{ sub.student.user.username }}</td><td>{{ sub.submitted_at|date:"M d" }}</td>
+<td>{% if sub.is_graded %}Yes{% else %}No{% endif %}</td>
+<td>{{ sub.score|default:"—" }}/{{ assignment.max_score }}</td>
+<td><a href="{% url 'assignments:grade_submission' pk=sub.pk %}" class="btn btn-sm btn-outline-primary">Grade</a></td></tr>
+{% endfor %}
+</tbody></table>{% endblock %}

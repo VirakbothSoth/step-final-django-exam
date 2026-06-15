@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Employee Dashboard – LearnHub{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Employee Dashboard</h2>
+
+<div class="row g-3 mb-5">
+  <div class="col-md-2 col-6">
+    <div class="card text-center border-primary">
+      <div class="card-body"><h3 class="text-primary">{{ total_users }}</h3><p class="mb-0 small">Users</p></div>
+    </div>
+  </div>
+  <div class="col-md-2 col-6">
+    <div class="card text-center border-success">
+      <div class="card-body"><h3 class="text-success">{{ total_students }}</h3><p class="mb-0 small">Students</p></div>
+    </div>
+  </div>
+  <div class="col-md-2 col-6">
+    <div class="card text-center border-info">
+      <div class="card-body"><h3 class="text-info">{{ total_instructors }}</h3><p class="mb-0 small">Instructors</p></div>
+    </div>
+  </div>
+  <div class="col-md-2 col-6">
+    <div class="card text-center border-warning">
+      <div class="card-body"><h3 class="text-warning">{{ total_courses }}</h3><p class="mb-0 small">Courses</p></div>
+    </div>
+  </div>
+  <div class="col-md-2 col-6">
+    <div class="card text-center border-danger">
+      <div class="card-body"><h3 class="text-danger">{{ total_enrollments }}</h3><p class="mb-0 small">Enrollments</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <strong>Quick Actions</strong>
+      </div>
+      <div class="card-body">
+        <div class="list-group list-group-flush">
+          <a href="{% url 'courses:course_list' %}" class="list-group-item list-group-item-action">
+            <i class="fa fa-book me-2"></i>Manage Courses
+          </a>
+          <a href="{% url 'courses:category_list' %}" class="list-group-item list-group-item-action">
+            <i class="fa fa-tag me-2"></i>Manage Categories
+          </a>
+          <a href="{% url 'courses:tag_list' %}" class="list-group-item list-group-item-action">
+            <i class="fa fa-tags me-2"></i>Manage Tags
+          </a>
+          <a href="{% url 'enrollments:all_enrollments' %}" class="list-group-item list-group-item-action">
+            <i class="fa fa-users me-2"></i>View All Enrollments
+          </a>
+          <a href="{% url 'reviews:moderate_reviews' %}" class="list-group-item list-group-item-action">
+            <i class="fa fa-star me-2"></i>Moderate Reviews
+          </a>
+          <a href="/admin/" class="list-group-item list-group-item-action">
+            <i class="fa fa-shield me-2"></i>Django Admin
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header"><strong>Recent Courses</strong></div>
+      <ul class="list-group list-group-flush">
+        {% for course in recent_courses %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>{{ course.title }}</span>
+          <span>
+            {% if course.is_published %}
+              <span class="badge bg-success">Live</span>
+            {% else %}
+              <span class="badge bg-secondary">Draft</span>
+            {% endif %}
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
