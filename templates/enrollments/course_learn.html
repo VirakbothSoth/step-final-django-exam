@@ -10,7 +10,9 @@
       <div class="card-header">
         <strong>{{ course.title }}</strong>
         <div class="progress mt-2" style="height:6px;">
-          <div class="progress-bar bg-success" style="width:{{ enrollment.progress_percent }}%"></div>
+          <div class="progress-bar bg-success"
+          style="width: {{ enrollment.progress_percent }}%"
+          ></div>
         </div>
         <small class="text-muted">{{ enrollment.progress_percent }}% complete</small>
       </div>
