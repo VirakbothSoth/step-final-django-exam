@@ -5,6 +5,7 @@ from django.utils import timezone
 from .models import Enrollment, LessonProgress
 from courses.models import Course
 from lessons.models import Lesson
+from assignments.models import Assignment
 
 
 @login_required
@@ -55,11 +56,14 @@ def course_learn(request, slug):
         prog, _ = LessonProgress.objects.get_or_create(enrollment=enrollment, lesson=lesson)
         progress_map[lesson.id] = prog
 
+    assignments = Assignment.objects.filter(lesson__course=course)
+
     context = {
         "course": course,
         "enrollment": enrollment,
         "lessons": lessons,
         "progress_map": progress_map,
+        "assignments": assignments
     }
     return render(request, "enrollments/course_learn.html", context)
 

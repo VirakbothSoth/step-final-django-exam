@@ -1,4 +1,4 @@
-# LearnHub – Django Online Learning Platform
+# LearnHub – Django Online Learning Platform Project
 
 A full-featured online learning platform supporting three roles: **Student**, **Instructor**, and **Employee**.
 
@@ -38,6 +38,7 @@ A full-featured online learning platform supporting three roles: **Student**, **
 
 ## Required Packages
 
+*We already have a requirements.txt*
 ```
 pip install django
 pip install pillow               # ImageField support
@@ -45,98 +46,47 @@ pip install django-crispy-forms
 pip install crispy-bootstrap5
 ```
 
-Or create a `requirements.txt`:
-
-```
-django>=4.2
-pillow>=10.0
-django-crispy-forms>=2.0
-crispy-bootstrap5>=0.7
-```
-
 ---
 
 ## Setup Guide
 
-### 1. Create the Django project
+### 1. Download/Clone the Repository
 
-```bash
-django-admin startproject learnhub .
+### 2. Make a Virtual Enviroment
+*for Windows*
+```
+py -m venv .env
 ```
 
-> Make sure to run this **inside** the folder that contains all the app folders (`accounts`, `courses`, etc.), not above it.
-
-### 2. Apply settings
-
-Follow `SETTINGS_GUIDE.md` — paste the full example block into `learnhub/settings.py`.
-
-**Critical:** `AUTH_USER_MODEL = "accounts.User"` must be set before any migration.
-
-### 3. Run migrations
-
-```bash
-python manage.py makemigrations accounts
-python manage.py makemigrations courses
-python manage.py makemigrations lessons
-python manage.py makemigrations enrollments
-python manage.py makemigrations assignments
-python manage.py makemigrations reviews
-python manage.py migrate
+### 3. Enter your Enviroment
+*for Windows*
+```
+.env\Scripts\activate
 ```
 
-### 4. Create a superuser (Employee account)
-
-```bash
-python manage.py createsuperuser
+### 4. Install the requirements
+```
+pip install -r requirements.txt
 ```
 
-Then open `/admin/` and:
-- Set the superuser's `role` to `employee`
-- Create an `Employee` profile linked to that user
-
-### 5. Seed sample data (optional)
-
-```bash
-python manage.py shell
+### 5. Run the Server
 ```
-
-```python
-from accounts.models import User, Student, Instructor, Employee
-from courses.models import Category, Tag
-
-# Create instructor
-u = User.objects.create_user("instructor1", "inst@demo.com", "pass1234", role="instructor")
-from accounts.models import Instructor
-Instructor.objects.create(user=u, expertise="Web Development")
-
-# Create student
-s = User.objects.create_user("student1", "stu@demo.com", "pass1234", role="student")
-from accounts.models import Student
-Student.objects.create(user=s)
-
-# Create category
-Category.objects.create(name="Web Development", slug="web-development")
+py manage.py runserver
 ```
-
-### 6. Run the development server
-
-```bash
-python manage.py runserver
-```
-
-Visit `http://127.0.0.1:8000/`
 
 ---
 
 ## Sample Credentials
 
-> Create these via the shell or admin after setup.
+These are the main available users within my project
 
 | Role | Username | Password |
 |---|---|---|
 | Student | `student1` | `pass1234` |
 | Instructor | `instructor1` | `pass1234` |
 | Employee | `employee1` | `pass1234` |
+
+*Although, you may create your own using the register feature.*
 
 ---
 
@@ -163,5 +113,4 @@ README.md                  ← This file
 ## Notes
 
 - The `enrollments/templatetags/enrollment_tags.py` provides a `get_item` filter used in `course_learn.html` for dict lookups — make sure `{% load enrollment_tags %}` is present if you extend that template.
-- All file uploads go to `media/` — add it to `.gitignore`.
 - For production, replace SQLite with PostgreSQL and set `DEBUG = False`.

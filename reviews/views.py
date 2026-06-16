@@ -12,8 +12,8 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ["rating", "comment"]
         widgets = {
-            "comment": forms.Textarea(attrs={"rows": 4}),
-            "rating": forms.Select(),
+            "rating": forms.Select(attrs={"class": "form-select"}),
+            "comment": forms.Textarea(attrs={"class": "form-control", "rows": 4, "placeholder": "Share your experience with this course..."}),
         }
 
 

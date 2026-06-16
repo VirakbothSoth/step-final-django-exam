@@ -13,7 +13,8 @@
 
     <h2>{{ course.title }}</h2>
     <p class="text-muted">
-      by <strong>{{ course.instructor.user.get_full_name }}</strong> &bull;
+      by <strong>
+        {{ course.instructor.user.get_full_name|default:course.instructor.user.username }}</strong> &bull;
       <span class="badge bg-primary">{{ course.category }}</span>
       <span class="badge bg-secondary">{{ course.level }}</span>
       {% for tag in course.tags.all %}<span class="badge bg-light text-dark">{{ tag.name }}</span>{% endfor %}

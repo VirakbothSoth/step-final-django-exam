@@ -43,7 +43,7 @@ class Course(models.Model):
     tags = models.ManyToManyField(Tag, blank=True, related_name="courses")
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
     thumbnail = models.ImageField(upload_to="course_thumbnails/", blank=True, null=True)
-    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default="beginner")
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default="Beginner")
     is_published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
