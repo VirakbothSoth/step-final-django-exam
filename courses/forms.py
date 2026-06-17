@@ -16,8 +16,38 @@ class CourseForm(forms.ModelForm):
             "price", "thumbnail", "level", "is_published",
         ]
         widgets = {
-            "description": forms.Textarea(attrs={"rows": 5}),
-            "slug": forms.TextInput(attrs={"placeholder": "auto-filled or custom"}),
+            "title": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "e.g. Learn Django in 30 Days",
+            }),
+            "slug": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "auto-filled or custom",
+            }),
+            "description": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 5,
+                "placeholder": "What will students learn?",
+            }),
+            "price": forms.NumberInput(attrs={
+                "class": "form-control",
+                "placeholder": "0.00",
+                "min": "0",
+                "step": "0.01",
+            }),
+            "category": forms.Select(attrs={
+                "class": "form-select",
+            }),
+            "level": forms.Select(attrs={
+                "class": "form-select",
+            }),
+            "thumbnail": forms.ClearableFileInput(attrs={
+                "class": "form-control",
+                "accept": "image/*",
+            }),
+            "is_published": forms.CheckboxInput(attrs={
+                "class": "form-check-input",
+            }),
         }
 
 

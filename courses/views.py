@@ -7,6 +7,7 @@ from .forms import CourseForm, CategoryForm, TagForm
 from enrollments.models import Enrollment
 
 
+
 def course_list(request):
     """Public course browse page with filters."""
     courses = Course.objects.filter(is_published=True).select_related(
@@ -152,3 +153,44 @@ def tag_create(request):
         messages.success(request, "Tag created.")
         return redirect("courses:tag_list")
     return render(request, "courses/tag_form.html", {"form": form, "action": "Create"})
+
+@login_required
+def manage_tags(request):
+    if request.user.role != 'employee':
+        return redirect('dashboard')
+    tags = Tag.objects.all().order_by('name')
+    return render(request, 'courses/manage_tags.html', {'tags': tags})
+
+@login_required
+def tag_create(request):
+    if request.user.role != 'employee':
+        return redirect('dashboard')
+    form = TagForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Tag created successfully.')
+        return redirect('courses:manage_tags')
+    return render(request, 'courses/tag_form.html', {'form': form, 'action': 'Create'})
+
+@login_required
+def tag_edit(request, pk):
+    if request.user.role != 'employee':
+        return redirect('dashboard')
+    tag = get_object_or_404(Tag, pk=pk)
+    form = TagForm(request.POST or None, instance=tag)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Tag updated successfully.')
+        return redirect('courses:manage_tags')
+    return render(request, 'courses/tag_form.html', {'form': form, 'action': 'Edit', 'tag': tag})
+
+@login_required
+def tag_delete(request, pk):
+    if request.user.role != 'employee':
+        return redirect('dashboard')
+    tag = get_object_or_404(Tag, pk=pk)
+    if request.method == 'POST':
+        tag.delete()
+        messages.success(request, 'Tag deleted.')
+        return redirect('courses:manage_tags')
+    return render(request, 'courses/tag_confirm_delete.html', {'tag': tag})
